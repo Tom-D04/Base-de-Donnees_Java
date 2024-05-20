@@ -1,7 +1,6 @@
 # Compte rendu Java - Base de Données
 
-*
-    Tom Dunand - 3A - TD2 - TP4*
+*Tom Dunand - 3A - TD2 - TP4*
 
 ---
 
