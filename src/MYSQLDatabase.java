@@ -58,6 +58,6 @@ public class MYSQLDatabase {
             System.err.println(sqlException.getMessage());
             return null;
         }
-    }
+    }  
     
 }
