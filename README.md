@@ -1,6 +1,6 @@
 # Compte rendu Java - Base de Données
 
-* Tom Dunand - 3A - TD2 - TP4*
+*Tom Dunand - 3A - TD2 - TP4*
 
 ---
 
@@ -123,14 +123,13 @@ Sport foot = new Sport(4,"bad",145);
 System.out.println(foot.getId() + " " + foot.getName() + " " + foot.getRequiredParticipants());
 ```
 
-Sortie : 
+Sortie :
 
 ```
 4 bad 145
 ```
 
 #### SportsDAO
-
 
 ```java
 public class SportsDAO {
@@ -159,7 +158,7 @@ public class SportsDAO {
 
 C'est la classe qui fait le lien entre un sport et la base de donnée. C'est à dire qu'elle définit la méthode `findAll` pour récupérer le contenu de la base de donnée et le formater.
 
-Nous avons ensuite ajouté les méthodes `findById` et `findByName` qui nous permettent de récupérer un seul sport selon l'ID ou le nom de sport fourni : 
+Nous avons ensuite ajouté les méthodes `findById` et `findByName` qui nous permettent de récupérer un seul sport selon l'ID ou le nom de sport fourni :
 
 ```java
     public Sport findById(int id){
@@ -208,7 +207,7 @@ Nous avons ensuite ajouté les méthodes `findById` et `findByName` qui nous per
 
 La seule chose qui change est la requête que l'on a modifié pour fournir l'ID ou nom passé en paramètre. Aussi, ici on utilise `prepareStatement()` qui est une méthode implémentée à la fin du sujet, que je présente dans la aprtie suivante, en réalité à cette étape, nous avons utilisé `executeQuery()` pour éxecuter une requête SQL sur la DB.
 
-Exemple d'utilisation : 
+Exemple d'utilisation :
 
 ```java
 SportsDAO sportsDAO = new SportsDAO(db);
