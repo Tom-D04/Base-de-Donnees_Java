@@ -1,8 +1,6 @@
 //import java.sql.ResultSet;
 //import java.sql.Statement;
 
-import java.util.Scanner;
-
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
@@ -10,10 +8,7 @@ public class App {
         db.loadDriver();
         db.connect();
         SportsDAO sportsDAO = new SportsDAO(db);
-        Scanner myScanner = new Scanner(System.in);
-        String name = myScanner.nextLine();
-        myScanner.close();
-        System.out.println(sportsDAO.findByName(name).getName());
+        System.out.println(sportsDAO.findByName());
     }
 }
 

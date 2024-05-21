@@ -3,6 +3,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class SportsDAO {
     MYSQLDatabase database;
@@ -26,29 +28,45 @@ public class SportsDAO {
         }
         return null;
     }
-    public Sport findById(int id) {
-        PreparedStatement statement = this.database.prepareStatement("SELECT * FROM sport WHERE id LIKE '%" + id + "%';");
-        try { 
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return new Sport(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getInt("required_participants"));
+    public Sport findById(int id){
+        database.connect();
+        try {
+            PreparedStatement myStatement = database.prepareStatement("SELECT * FROM `sport` WHERE `id` = ?");
+            myStatement.setInt(1, id);
+    
+            ResultSet results = myStatement.executeQuery(myStatement.toString());
+            while (results.next()) {
+                return new Sport(results.getInt("id"),results.getString("name"),results.getInt("required_participants"));
             }
-        } catch (SQLException e) {
+        }
+        catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
-    public Sport findByName(String name){
-        Sport sport = null;
-        PreparedStatement statement = this.database.prepareStatement("SELECT * FROM sport WHERE name LIKE '%" + name + "%';");
-        try {
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                sport = new Sport(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getInt("required_participants"));
+    
+    public Sport[] findByName(){
+        List<Sport> sport = new ArrayList<Sport>();
+        database.connect();
+        System.out.println("Keyword to search :");
+        try (Scanner myScanner = new Scanner(System.in)) {
+            String name = myScanner.nextLine();
+            try {
+                String query = "SELECT * FROM `sport` WHERE `name` LIKE ?";
+                PreparedStatement myStatement = database.prepareStatement(query);
+                myStatement.setString(1, "%"+name+"%");
+                ResultSet results = myStatement.executeQuery();
+                while (results.next()) {
+                    sport.add(new Sport(results.getInt("id"),results.getString("name"),results.getInt("required_participants")));
+                }
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            catch (Exception e) {
+                System.out.println("ici");
+                System.out.println(e.getMessage());
+            }
         }
-        return sport;
+        Sport[] array_sport = new Sport[ sport.size() ];
+        sport.toArray(array_sport);
+        return array_sport;
     }
 }

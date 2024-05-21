@@ -2,6 +2,7 @@ import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 
 public class MYSQLDatabase {
@@ -51,13 +52,13 @@ public class MYSQLDatabase {
             }
         }
     }
-    public PreparedStatement prepareStatement(String query) {
+    public PreparedStatement prepareStatement(String data) {
         try {
-            return connection.prepareStatement(query);
-        } catch (Exception sqlException) {
-            System.err.println(sqlException.getMessage());
-            return null;
+            return connection.prepareStatement(data);
+        } catch (SQLException e) {
+
+            throw new RuntimeException(e);
         }
-    }  
+    }
     
 }
